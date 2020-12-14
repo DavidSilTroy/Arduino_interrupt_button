@@ -13,8 +13,8 @@ int greenLed  = 11; //for pin 11
 int yellowLed = 10; //for pin 10
 int redLed    = 9;  //for pin 9
 
-int highLevel = 750; //number to compare with the analog reader
-int lowLevel  = 300; //number to compare with the analog reader
+int highLevel = 850; //number to compare with the analog reader
+int lowLevel  = 750; //number to compare with the analog reader
 
 int output_signal   = 0; //for output value, this goes between 0 and 255 to the pwd
 
