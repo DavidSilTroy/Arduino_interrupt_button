@@ -5,7 +5,7 @@ int option  = 0;  //this is to know witch button was touched
 int count   = 0;  //this is to know how much time the output will be working
 
 int btn100  = 8;  //for pin 8
-int btn75   = 7;  //for pin 7
+int btn75   = 4;  //for pin 4
 int btn50   = 12; //for pin 12
 int btn25   = 13; //for pin 13
 
