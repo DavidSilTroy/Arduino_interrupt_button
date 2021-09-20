@@ -20,5 +20,6 @@ When the stop button is pushed it cancel all the others.
 * [Arduino buttons with interrupt](https://www.youtube.com/watch?v=rzn9oZjNYc8)
 
 ## The conecction diagram is in a png file 🚀
+![alt text](https://github.com/DavidSilTroy/Arduino_interrupt_button/blob/main/conection_diagram_surfboard_leds_battery_level_and_buttons_op2.JPG?raw=true)
 
 _I hope this helps you! I wish you the best._
