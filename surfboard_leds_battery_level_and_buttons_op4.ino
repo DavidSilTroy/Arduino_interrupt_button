@@ -5,9 +5,9 @@ int option  = 0;  //this is to know witch button was touched
 int count   = 0;  //this is to know how much time the output will be working
 
 int btn100  = 7; //for pin 7
-int btn75   = 6; //for pin 6
-int btn50   = 5; //for pin 5
-int btn25   = 4; //for pin 4
+int btn85   = 6; //for pin 6
+int btn75   = 5; //for pin 5
+int btn50   = 4; //for pin 4
 
 int pinEsc = 11; //for pin 11
 
@@ -26,9 +26,9 @@ void setup() {
   pinMode(2,INPUT);//this button stop the process
   
   pinMode(btn100,INPUT);//  100% power for 8s and 75% power for 60s
+  pinMode(btn85,INPUT);//   85% power for 100s
   pinMode(btn75,INPUT);//   75% power for 100s
   pinMode(btn50,INPUT);//   50% power for 100s
-  pinMode(btn25,INPUT);//   25% power for 100s
 
   pinMode(greenLed,OUTPUT);//   to turn on the green Led     
   pinMode(yellowLed,OUTPUT);//  to turn on the yellow Led 
@@ -48,32 +48,32 @@ void setup() {
 void loop() {
   
   if(digitalRead(btn100)){
-    output_signal=map(90,0,100,40,130);
+    output_signal=map(100,0,100,40,130);
     Serial.print("100 Signal");
     Serial.println(output_signal);
     option=1;
     Power100();
     }
-  if(digitalRead(btn75)){
-    output_signal=map(75,0,100,40,130);
+  if(digitalRead(btn85)){
+    output_signal=map(85,0,100,40,130);
     Serial.print("75 Signal");
     Serial.println(output_signal);
     option=2;
-    Power75();
+    Power85();
     }
-  if(digitalRead(btn50)){
-    output_signal=map(60,0,100,40,130);
+  if(digitalRead(btn75)){
+    output_signal=map(75,0,100,40,130);
     Serial.print("50 Signal");
     Serial.println(output_signal);
     option=3;
-    Power50();
+    Power75();
     }
-  if(digitalRead(btn25)){
-    output_signal=map(40,0,100,40,130);
+  if(digitalRead(btn50)){
+    output_signal=map(50,0,100,40,130);
     Serial.print("25 Signal");
     Serial.println(output_signal);
     option=4;
-    Power25();
+    Power50();
     }
     
   CheckOption();
@@ -120,13 +120,13 @@ void CheckBattery(int A1){
 void Power100(){
   esc_signal.write(output_signal);
   }
+void Power85(){
+  esc_signal.write(output_signal);
+  }
 void Power75(){
   esc_signal.write(output_signal);
   }
 void Power50(){
-  esc_signal.write(output_signal);
-  }
-void Power25(){
   esc_signal.write(output_signal);
   }
   
@@ -135,7 +135,7 @@ void CheckOption(){
   case 1:
     Serial.println("100%");
     if(count==80){
-      output_signal=map(75,0,100,40,130);
+      output_signal=map(85,0,100,40,130);
       Power75();
       }
     if(count>=680){
