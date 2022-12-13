@@ -3,6 +3,7 @@ Servo esc_signal;
 
 int option  = 0;  //this is to know witch button was touched
 int count   = 0;  //this is to know how much time the output will be working
+int count_battery   = 0;  //this is to read the battery after an specific time
 
 int pinEsc = 11; //for pin 11
 
@@ -77,15 +78,13 @@ void loop() {
     }
     
   CheckOption();
-  //Serial.print("A1:");
-  CheckBattery(analogRead(A1));
-  if(analogRead(A1)>1){
-    //Serial.print("A1:");
-    //Serial.println(analogRead(A1));
-    //Serial.println(" ");
+  if (count_battery>=60){
+    CheckBattery(analogRead(A1));
+    count_battery=0
   }
-  //Serial.println(" ");
+
   count+=1;
+  count_battery+=1
   delay(100);
   
 }
