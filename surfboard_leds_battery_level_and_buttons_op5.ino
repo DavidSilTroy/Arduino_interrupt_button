@@ -77,8 +77,13 @@ void loop() {
     }
     
   CheckOption();
+
+  //Comentar esto luego de usar
+  Serial.print("Baterry read:");
+  Serial.println(analogRead(1));
+
   if (count_battery>=60){
-    CheckBattery(analogRead(A1));
+    CheckBattery(analogRead(1));
     count_battery=0
   }
 
