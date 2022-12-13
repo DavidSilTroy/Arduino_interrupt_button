@@ -84,7 +84,7 @@ void loop() {
 
   if (count_battery>=60){
     CheckBattery(analogRead(1));
-    count_battery=0
+    count_battery=0;
   }
 
   count+=1;
@@ -100,22 +100,30 @@ void BotonStop(){
   esc_signal.write(30);
 }
 
-void CheckBattery(int A1){
-   //Serial.println(A1);
-    if(A1>=highLevel){
-    digitalWrite(greenLed,HIGH);
-    digitalWrite(redLed,HIGH);
-    digitalWrite(yellowLed,HIGH);
-    }
-    if(A1<highLevel && A1>lowLevel){
-    digitalWrite(yellowLed,HIGH);
-    digitalWrite(redLed,HIGH);
-    digitalWrite(greenLed,LOW);
-    }
-    if(A1<=lowLevel){
+void CheckBattery(int level){
+   //Serial.println(level);
+    if(level<=lowLevel){
     digitalWrite(redLed,HIGH);
     digitalWrite(yellowLed,LOW);
     digitalWrite(greenLed,LOW);
+    }else{
+      if(level>=highLevel){
+      digitalWrite(greenLed,HIGH);
+      digitalWrite(redLed,HIGH);
+      digitalWrite(yellowLed,HIGH);
+      } else{
+        if(level<highLevel && level>lowLevel){
+        digitalWrite(yellowLed,HIGH);
+        digitalWrite(redLed,HIGH);
+        digitalWrite(greenLed,LOW);
+        }else{
+          //this shouldn't happend actually....
+          Serial.print("Recalculation needed for the battery reader");
+          digitalWrite(yellowLed,LOW);
+          digitalWrite(redLed,LOW);
+          digitalWrite(greenLed,LOW);
+        }
+      }
     }
   }
 
