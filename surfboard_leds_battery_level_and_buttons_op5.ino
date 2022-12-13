@@ -23,7 +23,6 @@ int speed4   = 25; // speed 25%
 
 //750-900
 int highLevel   = 800;//number to compare with the analog reader
-int mediumLevel = 750;//number to compare with the analog reader
 int lowLevel    = 700;//number to compare with the analog reader
 
 int output_signal   = 0; //for output value, this goes between 0 and 255 to the pwd
@@ -98,16 +97,15 @@ void BotonStop(){
 
 void CheckBattery(int A1){
    //Serial.println(A1);
-    
-    if(A1>=mediumLevel){
-    digitalWrite(yellowLed,HIGH);
-    digitalWrite(redLed,HIGH);
-    digitalWrite(greenLed,LOW);
-    }
     if(A1>=highLevel){
     digitalWrite(greenLed,HIGH);
     digitalWrite(redLed,HIGH);
     digitalWrite(yellowLed,HIGH);
+    }
+    if(A1<highLevel && A1>lowLevel){
+    digitalWrite(yellowLed,HIGH);
+    digitalWrite(redLed,HIGH);
+    digitalWrite(greenLed,LOW);
     }
     if(A1<=lowLevel){
     digitalWrite(redLed,HIGH);
