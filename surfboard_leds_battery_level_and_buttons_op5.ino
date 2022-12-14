@@ -21,9 +21,9 @@ int speed2   = 75; // speed 75%
 int speed3   = 50; // speed 50%
 int speed4   = 25; // speed 25%
 
-//750-900
-int highLevel   = 800;//number to compare with the analog reader
-int lowLevel    = 700;//number to compare with the analog reader
+
+int highLevel   = 400;//number to compare with the analog reader
+int lowLevel    = 200;//number to compare with the analog reader
 
 int output_signal   = 0; //for output value, this goes between 0 and 255 to the pwd
 
@@ -47,6 +47,14 @@ void setup() {
   esc_signal.write(30);   //ESC arm command. ESCs won't start unless input speed is less during initialization.
   delay(3000);            //ESC initialization delay.
   
+  //setting a new variable battery level decided by the first read
+  if (analogRead(1)>500)
+  {
+    highLevel = analogRead(1) - 150;
+    lowLevel    = analogRead(1)/3;
+  }
+  
+
 }
 
 void loop() {
@@ -88,7 +96,7 @@ void loop() {
   }
 
   count+=1;
-  count_battery+=1
+  count_battery+=1;
   delay(100);
   
 }
@@ -100,28 +108,42 @@ void BotonStop(){
   esc_signal.write(30);
 }
 
+void highbattery(){
+  digitalWrite(greenLed,HIGH);
+  digitalWrite(redLed,HIGH);
+  digitalWrite(yellowLed,HIGH);
+}
+void midbattery(){
+  digitalWrite(yellowLed,HIGH);
+  digitalWrite(redLed,HIGH);
+  digitalWrite(greenLed,LOW);
+}
+void lowbattery(){
+  digitalWrite(redLed,HIGH);
+  digitalWrite(yellowLed,LOW);
+  digitalWrite(greenLed,LOW);
+}
+void battery_leds_off(){
+  digitalWrite(yellowLed,LOW);
+  digitalWrite(redLed,LOW);
+  digitalWrite(greenLed,LOW);
+}
+
+
 void CheckBattery(int level){
    //Serial.println(level);
     if(level<=lowLevel){
-    digitalWrite(redLed,HIGH);
-    digitalWrite(yellowLed,LOW);
-    digitalWrite(greenLed,LOW);
+      lowbattery();
     }else{
       if(level>=highLevel){
-      digitalWrite(greenLed,HIGH);
-      digitalWrite(redLed,HIGH);
-      digitalWrite(yellowLed,HIGH);
+        highbattery();
       } else{
         if(level<highLevel && level>lowLevel){
-        digitalWrite(yellowLed,HIGH);
-        digitalWrite(redLed,HIGH);
-        digitalWrite(greenLed,LOW);
+          midbattery();
         }else{
           //this shouldn't happend actually....
           Serial.print("Recalculation needed for the battery reader");
-          digitalWrite(yellowLed,LOW);
-          digitalWrite(redLed,LOW);
-          digitalWrite(greenLed,LOW);
+          battery_leds_off();
         }
       }
     }
